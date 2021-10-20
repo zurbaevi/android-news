@@ -1,6 +1,5 @@
 package dev.zurbaevi.news.ui.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,19 +9,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FavoriteViewModel @Inject constructor(private val newsRepository: NewsRepository) :
+class DetailsViewModel @Inject constructor(private val newsRepository: NewsRepository) :
     ViewModel() {
 
-    private val _articles = MutableLiveData<List<Articles>>()
-    val articles get() = _articles
-
-    init {
-        getArticles()
-    }
-
-    private fun getArticles() {
+    fun insert(articles: Articles) {
         viewModelScope.launch {
-            _articles.postValue(newsRepository.getFavoritesArticles())
+            newsRepository.insert(articles)
         }
     }
 

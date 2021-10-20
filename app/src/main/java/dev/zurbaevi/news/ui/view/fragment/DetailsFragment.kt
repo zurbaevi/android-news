@@ -10,7 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import dev.zurbaevi.news.databinding.FragmentDetailsBinding
-import dev.zurbaevi.news.ui.viewmodel.FavoriteViewModel
+import dev.zurbaevi.news.ui.viewmodel.DetailsViewModel
 
 @AndroidEntryPoint
 class DetailsFragment : BottomSheetDialogFragment() {
@@ -18,9 +18,9 @@ class DetailsFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
 
-    private val favoriteViewModel by viewModels<FavoriteViewModel>()
-
     private val args by navArgs<DetailsFragmentArgs>()
+
+    private val detailsViewModel by viewModels<DetailsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,9 +38,9 @@ class DetailsFragment : BottomSheetDialogFragment() {
             textViewDescription.text = args.articles.description
 
             buttonFavorite.setOnClickListener {
-                favoriteViewModel.insert(args.articles)
+                detailsViewModel.insert(args.articles)
+                Toast.makeText(requireContext(), "Added", Toast.LENGTH_SHORT).show()
                 dialog?.dismiss()
-                Toast.makeText(requireContext(), "Added!", Toast.LENGTH_SHORT).show()
             }
         }
     }

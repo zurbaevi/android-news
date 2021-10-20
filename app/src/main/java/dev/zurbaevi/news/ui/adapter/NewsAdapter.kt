@@ -9,8 +9,8 @@ import com.bumptech.glide.Glide
 import dev.zurbaevi.news.data.model.Articles
 import dev.zurbaevi.news.databinding.ItemArticleBinding
 
-class NewsFavoriteAdapter(private val clickListener: OnItemClickListener) :
-    ListAdapter<Articles, NewsFavoriteAdapter.NewsViewHolder>(NewsDiffCallback) {
+class NewsAdapter(private val clickListener: OnItemClickListener?) :
+    ListAdapter<Articles, NewsAdapter.NewsViewHolder>(NewsDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
@@ -38,7 +38,7 @@ class NewsFavoriteAdapter(private val clickListener: OnItemClickListener) :
                 if (position != RecyclerView.NO_POSITION) {
                     val item = getItem(position)
                     if (item != null) {
-                        clickListener.onItemClick(item)
+                        clickListener?.onItemClick(item)
                     }
                 }
             }

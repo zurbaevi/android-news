@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -11,17 +13,19 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import dev.zurbaevi.news.data.model.Articles
 import dev.zurbaevi.news.databinding.FragmentMainBinding
-import dev.zurbaevi.news.ui.adapter.NewsPagingAdapter
+import dev.zurbaevi.news.ui.adapter.NewsAdapter
 import dev.zurbaevi.news.ui.viewmodel.MainViewModel
+import dev.zurbaevi.news.util.Resource
+import dev.zurbaevi.news.util.safeNavigate
 
 @AndroidEntryPoint
-class MainFragment : Fragment(), NewsPagingAdapter.OnItemClickListener {
+class MainFragment : Fragment(), NewsAdapter.OnItemClickListener {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
     private val newsAdapter by lazy {
-        NewsPagingAdapter(this)
+        NewsAdapter(this)
     }
 
     private val newsViewModel by viewModels<MainViewModel>()
@@ -48,7 +52,26 @@ class MainFragment : Fragment(), NewsPagingAdapter.OnItemClickListener {
         }
 
         newsViewModel.articles.observe(viewLifecycleOwner, {
-            newsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+            binding.apply {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Resource.Status.SUCCESS -> {
+                            progressBar.isVisible = false
+                            recyclerView.isVisible = true
+                            newsAdapter.submitList(it.data?.articles)
+                        }
+                        Resource.Status.ERROR -> {
+                            progressBar.isVisible = false
+                            recyclerView.isVisible = false
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                        }
+                        Resource.Status.LOADING -> {
+                            progressBar.isVisible = true
+                            recyclerView.isVisible = false
+                        }
+                    }
+                }
+            }
         })
     }
 
@@ -58,7 +81,7 @@ class MainFragment : Fragment(), NewsPagingAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(articles: Articles) {
-        findNavController().navigate(
+        findNavController().safeNavigate(
             MainFragmentDirections.actionMainFragmentToDetailsFragment(
                 articles
             )

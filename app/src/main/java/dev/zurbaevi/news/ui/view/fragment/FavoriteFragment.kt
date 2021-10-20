@@ -8,22 +8,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
-import dev.zurbaevi.news.data.model.Articles
 import dev.zurbaevi.news.databinding.FragmentFavoriteBinding
-import dev.zurbaevi.news.ui.adapter.NewsFavoriteAdapter
+import dev.zurbaevi.news.ui.adapter.NewsAdapter
 import dev.zurbaevi.news.ui.viewmodel.FavoriteViewModel
 
 @AndroidEntryPoint
-class FavoriteFragment : Fragment(), NewsFavoriteAdapter.OnItemClickListener {
+class FavoriteFragment : Fragment() {
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
 
     private val favoriteViewModel by viewModels<FavoriteViewModel>()
 
-    private val newsAdapter by lazy {
-        NewsFavoriteAdapter(this)
-    }
+    private val newsAdapter by lazy { NewsAdapter(null) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,10 +55,6 @@ class FavoriteFragment : Fragment(), NewsFavoriteAdapter.OnItemClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onItemClick(articles: Articles) {
-
     }
 
 }
