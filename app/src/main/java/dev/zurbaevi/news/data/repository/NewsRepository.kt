@@ -6,7 +6,9 @@ import dev.zurbaevi.news.data.model.Articles
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class NewsRepository @Inject constructor(
     private val apiService: ApiService,
     private val articlesDao: ArticlesDao

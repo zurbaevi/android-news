@@ -1,6 +1,5 @@
 package dev.zurbaevi.news.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,7 +19,6 @@ class MainViewModel @Inject constructor(private val newsRepository: NewsReposito
 
     init {
         getArticles()
-        Log.d("TAG", "init viewmodel ")
     }
 
     private fun getArticles() {
