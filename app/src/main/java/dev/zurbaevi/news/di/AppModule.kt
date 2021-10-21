@@ -37,7 +37,7 @@ class AppModule {
     fun provideTaskDatabase(@ApplicationContext context: Context) = Room.databaseBuilder(
         context.applicationContext,
         ArticleDatabase::class.java,
-        "quote_database"
+        "articles_database"
     ).build()
 
     @Singleton
