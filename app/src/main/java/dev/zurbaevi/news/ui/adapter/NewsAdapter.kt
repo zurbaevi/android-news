@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import dev.zurbaevi.news.R
 import dev.zurbaevi.news.data.model.Articles
 import dev.zurbaevi.news.databinding.ItemArticleBinding
 
@@ -48,6 +49,7 @@ class NewsAdapter(private val clickListener: OnItemClickListener?) :
             binding.apply {
                 Glide.with(itemView)
                     .load(articles.urlToImage)
+                    .error(R.drawable.ic_image_error)
                     .into(imageView)
                 textViewTitle.text = articles.title
                 textViewDescription.text = articles.description
