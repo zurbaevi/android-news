@@ -48,7 +48,6 @@ class FavoriteFragment : Fragment() {
         favoriteViewModel.articles.observe(viewLifecycleOwner, {
             newsAdapter.submitList(it)
         })
-
     }
 
     override fun onDestroyView() {
