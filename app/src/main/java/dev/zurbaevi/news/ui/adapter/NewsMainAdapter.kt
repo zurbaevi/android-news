@@ -2,16 +2,16 @@ package dev.zurbaevi.news.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import dev.zurbaevi.news.R
 import dev.zurbaevi.news.data.model.Articles
 import dev.zurbaevi.news.databinding.ItemArticleBinding
 
-class NewsAdapter(private val clickListener: OnItemClickListener?) :
-    ListAdapter<Articles, NewsAdapter.NewsViewHolder>(NewsDiffCallback) {
+class NewsMainAdapter(private val clickListener: OnItemClickListener?) :
+    PagingDataAdapter<Articles, NewsMainAdapter.NewsViewHolder>(NewsDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(

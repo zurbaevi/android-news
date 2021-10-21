@@ -2,29 +2,28 @@ package dev.zurbaevi.news.ui.view.fragment
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import dev.zurbaevi.news.R
 import dev.zurbaevi.news.data.model.Articles
 import dev.zurbaevi.news.databinding.FragmentMainBinding
-import dev.zurbaevi.news.ui.adapter.NewsAdapter
+import dev.zurbaevi.news.ui.adapter.NewsMainAdapter
 import dev.zurbaevi.news.ui.viewmodel.MainViewModel
-import dev.zurbaevi.news.util.Resource
 import dev.zurbaevi.news.util.safeNavigate
 
 @AndroidEntryPoint
-class MainFragment : Fragment(), NewsAdapter.OnItemClickListener {
+class MainFragment : Fragment(), NewsMainAdapter.OnItemClickListener {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private val newsAdapter by lazy { NewsAdapter(this) }
+    private val newsAdapter by lazy { NewsMainAdapter(this) }
     private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreateView(
@@ -46,29 +45,17 @@ class MainFragment : Fragment(), NewsAdapter.OnItemClickListener {
                     DividerItemDecoration.VERTICAL
                 )
             )
+
+            newsAdapter.addLoadStateListener {
+                progressBar.isVisible = it.refresh == LoadState.Loading
+                recyclerView.isVisible = it.refresh != LoadState.Loading
+                imageViewError.isVisible = it.source.refresh is LoadState.Error
+            }
+
         }
 
         mainViewModel.articles.observe(viewLifecycleOwner, {
-            binding.apply {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Resource.Status.SUCCESS -> {
-                            progressBar.isVisible = false
-                            recyclerView.isVisible = true
-                            newsAdapter.submitList(it.data?.articles)
-                        }
-                        Resource.Status.ERROR -> {
-                            progressBar.isVisible = false
-                            recyclerView.isVisible = false
-                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
-                        }
-                        Resource.Status.LOADING -> {
-                            progressBar.isVisible = true
-                            recyclerView.isVisible = false
-                        }
-                    }
-                }
-            }
+            newsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         })
 
         setHasOptionsMenu(true)

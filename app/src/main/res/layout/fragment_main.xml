@@ -17,6 +17,17 @@
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_gravity="center" />
+
+    <ImageView
+        android:id="@+id/imageViewError"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_error"
+        android:visibility="gone"
+        app:tint="#FF0000"
+        tools:ignore="ContentDescription" />
 
 </FrameLayout>

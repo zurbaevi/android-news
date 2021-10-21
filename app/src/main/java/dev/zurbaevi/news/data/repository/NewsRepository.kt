@@ -1,5 +1,7 @@
 package dev.zurbaevi.news.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import dev.zurbaevi.news.data.api.ApiService
 import dev.zurbaevi.news.data.local.dao.ArticlesDao
 import dev.zurbaevi.news.data.model.Articles
@@ -15,7 +17,25 @@ class NewsRepository @Inject constructor(
 ) {
 
     suspend fun getArticles() = withContext(Dispatchers.IO) {
-        apiService.getArticles()
+        Pager(
+            config = PagingConfig(
+                pageSize = 5,
+                maxSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { NewsPagingSource(apiService, null) }
+        ).flow
+    }
+
+    suspend fun searchArticles(query: String) = withContext(Dispatchers.IO) {
+        Pager(
+            config = PagingConfig(
+                pageSize = 5,
+                maxSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { NewsPagingSource(apiService, query) }
+        ).flow
     }
 
     suspend fun insert(articles: Articles) = withContext(Dispatchers.IO) {
@@ -24,10 +44,6 @@ class NewsRepository @Inject constructor(
 
     suspend fun getFavoritesArticles() = withContext(Dispatchers.IO) {
         articlesDao.getArticles()
-    }
-
-    suspend fun searchArticles(query: String) = withContext(Dispatchers.IO) {
-        apiService.searchArticles(query)
     }
 
 }
