@@ -19,7 +19,6 @@ class FavoriteFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val favoriteViewModel by viewModels<FavoriteViewModel>()
-
     private val newsAdapter by lazy { NewsAdapter(null) }
 
     override fun onCreateView(

@@ -1,16 +1,16 @@
 package dev.zurbaevi.news.ui.view.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
+import dev.zurbaevi.news.R
 import dev.zurbaevi.news.data.model.Articles
 import dev.zurbaevi.news.databinding.FragmentMainBinding
 import dev.zurbaevi.news.ui.adapter.NewsAdapter
@@ -24,11 +24,8 @@ class MainFragment : Fragment(), NewsAdapter.OnItemClickListener {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private val newsAdapter by lazy {
-        NewsAdapter(this)
-    }
-
-    private val newsViewModel by viewModels<MainViewModel>()
+    private val newsAdapter by lazy { NewsAdapter(this) }
+    private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +48,7 @@ class MainFragment : Fragment(), NewsAdapter.OnItemClickListener {
             )
         }
 
-        newsViewModel.articles.observe(viewLifecycleOwner, {
+        mainViewModel.articles.observe(viewLifecycleOwner, {
             binding.apply {
                 it?.let { resource ->
                     when (resource.status) {
@@ -71,6 +68,29 @@ class MainFragment : Fragment(), NewsAdapter.OnItemClickListener {
                         }
                     }
                 }
+            }
+        })
+
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.appbar_menu, menu)
+        val searchItem = menu.findItem(R.id.menuSearch)
+        val searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    binding.recyclerView.scrollToPosition(0)
+                    mainViewModel.searchArticles(query)
+                    searchView.clearFocus()
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
             }
         })
     }

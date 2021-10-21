@@ -14,8 +14,14 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/News/app/src/main/res/layout/item_article.xml" value="0.2598958333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/News/app/src/main/res/layout/row_news_article.xml" value="0.2598958333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/News/app/src/main/res/menu/menu.xml" value="0.2598958333333333" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/android-news/app/src/main/res/layout/fragment_details.xml" value="0.134375" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/android-news/app/src/main/res/layout/activity_news.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/android-news/app/src/main/res/layout/fragment_details.xml" value="0.264" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/android-news/app/src/main/res/layout/fragment_favorite.xml" value="0.2598958333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/android-news/app/src/main/res/layout/fragment_main.xml" value="0.24537037037037038" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/android-news/app/src/main/res/layout/fragment_search.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/android-news/app/src/main/res/menu/appbar_menu.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/android-news/app/src/main/res/menu/bottom_menu.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/android-news/app/src/main/res/menu/menu.xml" value="0.2598958333333333" />
       </map>
     </option>
   </component>

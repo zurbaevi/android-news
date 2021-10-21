@@ -19,7 +19,6 @@ class DetailsFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
 
     private val args by navArgs<DetailsFragmentArgs>()
-
     private val detailsViewModel by viewModels<DetailsViewModel>()
 
     override fun onCreateView(

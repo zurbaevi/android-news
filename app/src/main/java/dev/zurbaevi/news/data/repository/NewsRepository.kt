@@ -24,4 +24,8 @@ class NewsRepository @Inject constructor(
         articlesDao.getArticles()
     }
 
+    suspend fun searchArticles(query: String) = withContext(Dispatchers.IO) {
+        apiService.searchArticles(query)
+    }
+
 }
