@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.zurbaevi.news.R
 import dev.zurbaevi.news.data.model.Articles
 import dev.zurbaevi.news.databinding.FragmentMainBinding
+import dev.zurbaevi.news.ui.adapter.NewsLoadStateAdapter
 import dev.zurbaevi.news.ui.adapter.NewsMainAdapter
 import dev.zurbaevi.news.ui.viewmodel.MainViewModel
 import dev.zurbaevi.news.util.safeNavigate
@@ -49,11 +50,20 @@ class MainFragment : Fragment(), NewsMainAdapter.OnItemClickListener {
                     DividerItemDecoration.VERTICAL
                 )
             )
+            recyclerView.adapter = newsAdapter.withLoadStateHeaderAndFooter(
+                header = NewsLoadStateAdapter { newsAdapter.retry() },
+                footer = NewsLoadStateAdapter { newsAdapter.retry() }
+            )
+
+            buttonRetry.setOnClickListener {
+                newsAdapter.retry()
+            }
 
             newsAdapter.addLoadStateListener {
                 progressBar.isVisible = it.refresh == LoadState.Loading
                 recyclerView.isVisible = it.refresh != LoadState.Loading
-                imageViewError.isVisible = it.source.refresh is LoadState.Error
+                buttonRetry.isVisible = it.source.refresh is LoadState.Error
+                textViewError.isVisible = it.source.refresh is LoadState.Error
             }
         }
 
@@ -79,7 +89,7 @@ class MainFragment : Fragment(), NewsMainAdapter.OnItemClickListener {
                 job?.cancel()
                 job = MainScope().launch {
                     newText?.let {
-                        delay(1500)
+                        delay(1000)
                         if (newText.isNotEmpty()) {
                             binding.recyclerView.scrollToPosition(0)
                             mainViewModel.searchArticles(newText)

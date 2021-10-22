@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:background="@drawable/background_dialog"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,6 +23,7 @@
             android:layout_marginVertical="4dp"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:textColor="@color/white"
             tools:text="@tools:sample/lorem" />
 
         <TextView
@@ -30,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="10"
+            android:textColor="@color/white"
             android:textSize="18sp"
             tools:text="@tools:sample/lorem/random" />
 
@@ -38,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:layout_marginVertical="4dp"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/color_primary"
             android:text="@string/favorite" />
 
     </LinearLayout>

@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.pranavpandey.android.dynamic.toasts.DynamicToast
 import dagger.hilt.android.AndroidEntryPoint
 import dev.zurbaevi.news.databinding.FragmentDetailsBinding
 import dev.zurbaevi.news.ui.viewmodel.DetailsViewModel
@@ -35,10 +35,9 @@ class DetailsFragment : BottomSheetDialogFragment() {
         binding.apply {
             textViewTitle.text = args.articles.title
             textViewDescription.text = args.articles.description
-
             buttonFavorite.setOnClickListener {
                 detailsViewModel.insert(args.articles)
-                Toast.makeText(requireContext(), "Added", Toast.LENGTH_SHORT).show()
+                DynamicToast.makeSuccess(requireContext(), "Added").show()
                 dialog?.dismiss()
             }
         }

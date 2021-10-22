@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/color_background"
     android:layout_height="match_parent"
     tools:context=".ui.view.fragment.MainFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
+        android:visibility="visible"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_article" />
@@ -18,16 +20,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:layout_gravity="center" />
+        android:layout_centerInParent="true" />
 
-    <ImageView
-        android:id="@+id/imageViewError"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+    <TextView
+        android:id="@+id/textViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/ic_error"
-        android:visibility="gone"
-        app:tint="#FF0000"
-        tools:ignore="ContentDescription" />
+        android:layout_centerInParent="true"
+        android:text="@string/result_could_not_be_loaded"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="gone" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/buttonRetry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewError"
+        android:layout_centerInParent="true"
+        android:text="@string/retry"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
+</RelativeLayout>

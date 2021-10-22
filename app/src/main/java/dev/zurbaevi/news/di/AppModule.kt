@@ -7,8 +7,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import dev.zurbaevi.news.BuildConfig
 import dev.zurbaevi.news.data.api.ApiService
 import dev.zurbaevi.news.data.local.database.ArticleDatabase
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -17,11 +21,33 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class AppModule {
 
+    @Singleton
+    @Provides
+    fun provideInterceptor(): Interceptor =
+        Interceptor { chain ->
+            val original = chain.request()
+            val httpUrl = original.url.newBuilder()
+                .addQueryParameter("apiKey", BuildConfig.API_KEY)
+                .build()
+            val requestBuilder: Request.Builder = original.newBuilder()
+                .url(httpUrl)
+            chain.proceed(requestBuilder.build())
+        }
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(header: Interceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .apply {
+                addInterceptor(header)
+            }.build()
+
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
             .baseUrl(ApiService.BASE_URL)
             .build()
     }

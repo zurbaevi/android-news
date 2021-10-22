@@ -7,6 +7,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/color_card_background"
         android:layout_height="match_parent">
 
         <ImageView
@@ -24,6 +25,7 @@
             android:id="@+id/textViewTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:layout_margin="8dp"
             android:maxLines="1"
             android:textStyle="bold"
@@ -36,6 +38,7 @@
             android:id="@+id/textViewDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:layout_margin="8dp"
             android:ellipsize="end"
             android:maxLines="6"

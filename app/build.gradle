@@ -18,6 +18,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "API_KEY", "\"2bdfbb8b8f8b4ebab0a10958f0b86ef0\""
     }
 
     buildFeatures {
@@ -53,6 +55,7 @@ dependencies {
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
 
     // Navigation component
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
@@ -72,6 +75,9 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    // Dynamic toasts
+    implementation "com.pranavpandey.android:dynamic-toasts:$dynamic_toast_version"
 }
 
 kapt {
