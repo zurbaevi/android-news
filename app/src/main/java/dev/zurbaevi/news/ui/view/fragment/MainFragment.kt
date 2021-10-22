@@ -62,6 +62,7 @@ class MainFragment : Fragment(), NewsMainAdapter.OnItemClickListener {
             newsAdapter.addLoadStateListener {
                 progressBar.isVisible = it.refresh == LoadState.Loading
                 recyclerView.isVisible = it.refresh != LoadState.Loading
+                recyclerView.isVisible = it.source.refresh is LoadState.NotLoading
                 buttonRetry.isVisible = it.source.refresh is LoadState.Error
                 textViewError.isVisible = it.source.refresh is LoadState.Error
             }

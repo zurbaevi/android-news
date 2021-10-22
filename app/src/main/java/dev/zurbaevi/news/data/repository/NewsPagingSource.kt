@@ -27,11 +27,11 @@ class NewsPagingSource(
             } else {
                 apiService.getArticles(position, params.loadSize)
             }
-            val photos = response.articles
+            val articles = response.articles
             LoadResult.Page(
-                data = photos,
+                data = articles,
                 prevKey = if (position == 1) null else position - 1,
-                nextKey = if (photos.isEmpty()) null else position + 1
+                nextKey = if (articles.isEmpty()) null else position + 1
             )
         } catch (exception: IOException) {
             LoadResult.Error(exception)
