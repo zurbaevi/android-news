@@ -21,7 +21,7 @@ ____
 - Navigation Component
 - Coroutines
 - Room
-- Hilt
+- Koin
 - Retrofit
 - Paging 3
 
