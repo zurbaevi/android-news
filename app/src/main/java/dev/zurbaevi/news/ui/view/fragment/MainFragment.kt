@@ -5,11 +5,9 @@ import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
-import dagger.hilt.android.AndroidEntryPoint
 import dev.zurbaevi.news.R
 import dev.zurbaevi.news.data.model.Articles
 import dev.zurbaevi.news.databinding.FragmentMainBinding
@@ -21,15 +19,15 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.android.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class MainFragment : Fragment(), NewsMainAdapter.OnItemClickListener {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
     private val newsAdapter by lazy { NewsMainAdapter(this) }
-    private val mainViewModel by viewModels<MainViewModel>()
+    private val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,7 +88,7 @@ class MainFragment : Fragment(), NewsMainAdapter.OnItemClickListener {
                 job?.cancel()
                 job = MainScope().launch {
                     newText?.let {
-                        delay(1000)
+                        delay(500)
                         if (newText.isNotEmpty()) {
                             binding.recyclerView.scrollToPosition(0)
                             mainViewModel.searchArticles(newText)
@@ -102,10 +100,6 @@ class MainFragment : Fragment(), NewsMainAdapter.OnItemClickListener {
         })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     override fun onItemClick(articles: Articles) {
         findNavController().safeNavigate(
@@ -113,6 +107,11 @@ class MainFragment : Fragment(), NewsMainAdapter.OnItemClickListener {
                 articles
             )
         )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

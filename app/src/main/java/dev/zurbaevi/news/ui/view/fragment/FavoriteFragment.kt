@@ -5,20 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
-import dagger.hilt.android.AndroidEntryPoint
 import dev.zurbaevi.news.databinding.FragmentFavoriteBinding
 import dev.zurbaevi.news.ui.adapter.NewsFavoriteAdapter
 import dev.zurbaevi.news.ui.viewmodel.FavoriteViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class FavoriteFragment : Fragment() {
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
 
-    private val favoriteViewModel by viewModels<FavoriteViewModel>()
+    private val favoriteViewModel: FavoriteViewModel by viewModel()
     private val newsAdapter by lazy { NewsFavoriteAdapter() }
 
     override fun onCreateView(

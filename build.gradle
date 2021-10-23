@@ -14,11 +14,10 @@ buildscript {
         glide_version = "4.12.0"
         build_gradle_version = "7.0.2"
         kotlin_gradle_plugin = "1.5.30"
-        hilt_version = "2.38.1"
         room_version = "2.3.0"
         paging_version = "3.0.1"
-        dynamic_toast_version = "4.1.0"
         okhttp_version = "4.9.1"
+        koin_version = "2.1.6"
     }
     repositories {
         google()
@@ -28,7 +27,6 @@ buildscript {
         classpath "com.android.tools.build:gradle:$build_gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_gradle_plugin"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
-        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

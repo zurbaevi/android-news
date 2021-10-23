@@ -5,15 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.zurbaevi.news.data.model.Articles
 import dev.zurbaevi.news.data.repository.NewsRepository
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class MainViewModel @Inject constructor(private val newsRepository: NewsRepository) :
+class MainViewModel(private val newsRepository: NewsRepository) :
     ViewModel() {
 
     private val _articles = MutableLiveData<PagingData<Articles>>()

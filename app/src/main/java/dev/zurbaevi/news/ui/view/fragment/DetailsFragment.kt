@@ -4,22 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.pranavpandey.android.dynamic.toasts.DynamicToast
-import dagger.hilt.android.AndroidEntryPoint
 import dev.zurbaevi.news.databinding.FragmentDetailsBinding
 import dev.zurbaevi.news.ui.viewmodel.DetailsViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class DetailsFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
 
     private val args by navArgs<DetailsFragmentArgs>()
-    private val detailsViewModel by viewModels<DetailsViewModel>()
+    private val detailsViewModel: DetailsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,9 +34,13 @@ class DetailsFragment : BottomSheetDialogFragment() {
             textViewDescription.text = args.articles.description
             buttonFavorite.setOnClickListener {
                 detailsViewModel.insert(args.articles)
-                DynamicToast.makeSuccess(requireContext(), "Added").show()
                 dialog?.dismiss()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

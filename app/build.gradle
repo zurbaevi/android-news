@@ -3,7 +3,6 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
-    id 'dagger.hilt.android.plugin'
     id 'kotlin-parcelize'
 }
 
@@ -64,10 +63,6 @@ dependencies {
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
 
-    // Hilt
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
-
     // Paging 3
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
@@ -76,10 +71,7 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    // Dynamic toasts
-    implementation "com.pranavpandey.android:dynamic-toasts:$dynamic_toast_version"
-}
-
-kapt {
-    correctErrorTypes true
+    // Koin
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
+    implementation "org.koin:koin-android:$koin_version"
 }
