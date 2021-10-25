@@ -16,8 +16,7 @@ class NewsRepository constructor(
     suspend fun getArticles() = withContext(Dispatchers.IO) {
         Pager(
             config = PagingConfig(
-                pageSize = 5,
-                maxSize = 20,
+                pageSize = 30,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { NewsPagingSource(apiService, null) }
@@ -27,8 +26,7 @@ class NewsRepository constructor(
     suspend fun searchArticles(query: String) = withContext(Dispatchers.IO) {
         Pager(
             config = PagingConfig(
-                pageSize = 5,
-                maxSize = 20,
+                pageSize = 30,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { NewsPagingSource(apiService, query) }
