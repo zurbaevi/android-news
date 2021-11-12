@@ -17,7 +17,6 @@ class FavoriteFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val favoriteViewModel: FavoriteViewModel by viewModel()
-    private val newsAdapter by lazy { NewsFavoriteAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +29,8 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val newsAdapter = NewsFavoriteAdapter()
 
         binding.apply {
             favoriteViewModel.articles.observe(viewLifecycleOwner, {

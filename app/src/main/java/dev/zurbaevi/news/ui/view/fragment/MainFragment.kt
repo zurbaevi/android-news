@@ -26,7 +26,6 @@ class MainFragment : Fragment(), NewsMainAdapter.OnItemClickListener {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private val newsAdapter by lazy { NewsMainAdapter(this) }
     private val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreateView(
@@ -39,6 +38,8 @@ class MainFragment : Fragment(), NewsMainAdapter.OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val newsAdapter = NewsMainAdapter(this)
 
         binding.apply {
             recyclerView.adapter = newsAdapter
