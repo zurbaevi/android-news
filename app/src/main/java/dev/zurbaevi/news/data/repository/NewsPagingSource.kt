@@ -9,7 +9,7 @@ import java.io.IOException
 
 class NewsPagingSource(
     private val apiService: ApiService,
-    private val query: String?
+    private val query: String
 ) : PagingSource<Int, Articles>() {
 
     override fun getRefreshKey(state: PagingState<Int, Articles>): Int? {
@@ -22,7 +22,7 @@ class NewsPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Articles> {
         val position = params.key ?: 1
         return try {
-            val response = if (query != null) {
+            val response = if (query.isNotEmpty()) {
                 apiService.searchArticles(query, position, params.loadSize)
             } else {
                 apiService.getArticles(position, params.loadSize)

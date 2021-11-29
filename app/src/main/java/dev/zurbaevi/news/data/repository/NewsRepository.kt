@@ -19,7 +19,7 @@ class NewsRepository constructor(
                 pageSize = 30,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { NewsPagingSource(apiService, null) }
+            pagingSourceFactory = { NewsPagingSource(apiService, "") }
         ).flow
     }
 

@@ -10,8 +10,9 @@ import dev.zurbaevi.news.R
 import dev.zurbaevi.news.data.model.Articles
 import dev.zurbaevi.news.databinding.ItemArticleBinding
 
-class NewsMainAdapter(private val clickListener: OnItemClickListener?) :
-    PagingDataAdapter<Articles, NewsMainAdapter.NewsViewHolder>(NewsDiffCallback) {
+class NewsMainAdapter(
+    private val clickListener: OnItemClickListener
+) : PagingDataAdapter<Articles, NewsMainAdapter.NewsViewHolder>(NewsDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
@@ -39,7 +40,7 @@ class NewsMainAdapter(private val clickListener: OnItemClickListener?) :
                 if (position != RecyclerView.NO_POSITION) {
                     val item = getItem(position)
                     if (item != null) {
-                        clickListener?.onItemClick(item)
+                        clickListener.onItemClick(item)
                     }
                 }
             }
