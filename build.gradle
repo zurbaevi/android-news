@@ -12,11 +12,11 @@ buildscript {
         espresso_version = "3.4.0"
         retrofit_version = "2.9.0"
         glide_version = "4.12.0"
-        build_gradle_version = '7.0.3'
-        kotlin_gradle_plugin = "1.5.31"
-        room_version = "2.3.0"
+        build_gradle_version = '7.0.4'
+        kotlin_gradle_plugin = "1.6.10"
+        room_version = '2.4.0'
         paging_version = "3.1.0"
-        okhttp_version = "4.9.1"
+        okhttp_version = '5.0.0-alpha.3'
         koin_version = "2.1.6"
     }
     repositories {
